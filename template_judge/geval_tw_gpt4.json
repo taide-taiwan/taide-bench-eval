@@ -1,0 +1,7 @@
+{
+    "num_models": 2,
+    "system": "你是一個幫助性強且用於精確檢查回答品質的Assistant。",
+    "user": "[問題]\n{question}\n\n[標準回答開始]\n{answer_1}\n\n[標準回答結束]\n\n[Assistant 回答開始]\n{answer_2}\n\n[Assistant 回答結束]\n\n[system]\n我們希望你針對上述問題和標準回答，對 Assistant 的表現提供回應。\n請對其回答的幫助性、相關性、準確性、詳細程度以及是否使用中文進行評分。不必要的英文內容應該避免，並會受到扣分。即使在中翻英任務中，系統說明例如「這是將中文句子翻譯成英文的結果」之敘述也應以中文提供。Assistant 將在 1 到 10 的範圍上獲得總體分數，較高的分數表示總體表現較好。\n請首先針對你的評估提供全面的解釋，避免任何潛在偏見，並確保回答呈現的順序不影響你的判斷。請於最後一行輸出 Assistant 的分數，並且格式為 Score:分數\n",
+    "description": "Prompt for general questions",
+    "category": "general"
+}

@@ -1,0 +1,7 @@
+{
+    "num_models": 2,
+    "system": "你是一個幫助性強且用於精確檢查回答品質的Assistant。",
+    "user": "[評估指南]\n\n請針對Assistant的摘要進行評估。請特別留意以下細項：\n\n簡單明瞭：檢查是否簡單明瞭的保留原始文章大致內容，避免陷入不重要的細節。\n\n用詞選擇：檢查使用的詞彙是否符合台灣中文的習慣，且該使用原文時保留原始語言。\n\n[問題開始]\n{question}\n\n[問題結束]\n[標準答案開始]\n{answer_1}\n\n[標準答案結束]\n\n[Assistant 回答開始]\n{answer_2}\n\n[Assistant 回答結束]\n\n在給出分數時，請按照以下指引：\n\n1-3分：摘要明顯有誤或回答原文。\n4-6分：摘要存在一些明顯的錯誤或遺漏。\n7-8分：摘要大致上是正確的，但還有一些小問題。\n9-10分：摘要非常精確，幾乎沒有任何問題。\n請先解釋你評分的原因，並在最後一行輸出 Assistant 的分數，格式為 Score:分數\n",
+    "description": "Prompt for general questions",
+    "category": "general"
+}
