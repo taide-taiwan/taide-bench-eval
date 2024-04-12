@@ -8,7 +8,6 @@ from tqdm import tqdm
 from typing import List, Dict, Any, Tuple
 import torch
 from vllm import LLM, SamplingParams
-from optimum.bettertransformer import BetterTransformer
 
 
 def auto_load_dataset(dataset_path: str, dataset_split: str = 'train'):
