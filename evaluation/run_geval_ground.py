@@ -1,12 +1,8 @@
 import asyncio
 import json
-import time
 import os
 from typing import Any, Dict, List
-from glob import glob
-import openai
 from tqdm.asyncio import tqdm as tqdm_async
-from aiohttp import ClientSession, ClientTimeout
 from datasets import load_dataset, Dataset
 from tqdm import tqdm, trange
 from concurrent.futures import ProcessPoolExecutor
@@ -56,9 +52,6 @@ async def get_completion_list(model, content_list, batch_size=20):
     result = await tqdm_async.gather(*[get_completion(client, model, content) for content in content_list], )
 
     return result
-    # async with ClientSession(trust_env=True, timeout=timeout,) as session:
-    #     openai.aiosession.set(session)
-    #     return await tqdm_async.gather(*[get_completion(model, content) for content in content_list])
 
 
 def get_completion_list_req(model, content_list):
