@@ -5,9 +5,6 @@ import os
 from collections import defaultdict
 from typing import Any, Dict, List
 
-import openai
-import random
-import aiohttp
 from tqdm.asyncio import tqdm as tqdm_async
 from tqdm import tqdm
 from openai import AsyncOpenAI, OpenAI
