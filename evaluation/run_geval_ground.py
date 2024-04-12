@@ -112,7 +112,7 @@ TASK2TEMPLATE = {
 def geval(
     judge_model: str = 'gpt-4-0613',
     template_path: str = None,
-    gen_result_path: str = 'result/model_ouput.jsonl',
+    gen_result_path: str = './result/model_ouput.jsonl',
     ground_dataset_path: str = 'taide/taide-bench',
     task: str = None,  # essay, letter, summary, en2zh, zh2en
     output_path: str = './result/tmp_score.json',

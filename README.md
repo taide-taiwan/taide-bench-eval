@@ -10,7 +10,7 @@
 依賴的函式庫可以透過以下指令安裝：
 
 ```bash
-conda env create -f environment.yml --solver libmamba 
+conda env create -f environment.yml --solver libmamba
 conda activate taide-bench
 ```
 
@@ -75,7 +75,7 @@ bash bash/batch_eval.bash \
 ```bash
 python evaluation/run_geval.py \
 --judge_model gpt-4 \
---template_path ./prompt_template/geval.json \
+--template_path ./template_judge/geval.json \
 --generated_result_paths "['$result1','$result2']"
 --output_path test.json
 ```

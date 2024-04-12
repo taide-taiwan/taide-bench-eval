@@ -86,7 +86,7 @@ def parse_score(review):
 
 def geval(
     judge_model: str = 'gpt-4-0613',
-    template_path: str = './prompt_template/geval.json',
+    template_path: str = './template_judge/geval.json',
     generated_result_paths: List[str] = [
         'result/tmp.jsonl', 'result/tmp2.jsonl', 'result/tmp3.jsonl'],
     output_path: str = './result/tmp_geval.json',

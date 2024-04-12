@@ -1,0 +1,7 @@
+{
+    "num_models": 2,
+    "system": "你是一個幫助性強且用於精確檢查回答品質的Assistant。",
+    "user": "[問題]\n{question}[Assistant 1 回答開始]\n{answer_1}\n\n[Assistant 1 回答結束]\n\n[Assistant 2 回答開始]\n{answer_2}\n\n[Assistant 2 回答結束]\n\n[system]\n我們希望您針對上述顯示的使用者問題，對兩個人工智慧助理的表現提供回應。\n請對其回答的正確性、幫助性、相關性、準確性、詳細程度以及是否使用台灣繁體中文進行評分，正確性最重要。每個Assistant將在1到10的標度上獲得總體分數，其中較高的分數表示總體表現較好。\n請首先輸出一行，只包含兩個值，分別表示 Assistant 1 和 Assistant 2 的分數。這兩個分數用空格分隔。在隨後的一行中，請對你的評估提供全面的解釋，避免任何潛在偏見，並確保回答呈現的順序不影響你的判斷。\n",
+    "description": "Prompt for general questions",
+    "category": "general"
+}

@@ -73,6 +73,6 @@ You can compare the output quality of two models:
 ```bash
 python evaluation/run_geval.py \
 --judge_model gpt-4 \
---template_path ./prompt_template/geval.json \
+--template_path ./template_judge/geval.json \
 --generated_result_paths "['$result1','$result2']" --output_path test.json
 ```
