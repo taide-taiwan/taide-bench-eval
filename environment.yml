@@ -19,6 +19,8 @@ dependencies:
     - ipython
     - protobuf
     - safetensors
+    - tqdm
+    - openai
     - sentencepiece
     - tokenizers
     - transformers

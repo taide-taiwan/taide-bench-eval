@@ -2,12 +2,10 @@ import json
 import os
 
 from datasets import load_dataset, Dataset
-from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig, TextGenerationPipeline, pipeline, LlamaForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
 from tqdm import tqdm
-from typing import List, Dict, Any, Tuple
 import torch
-from vllm import LLM, SamplingParams
 
 
 def auto_load_dataset(dataset_path: str, dataset_split: str = 'train'):
@@ -46,28 +44,13 @@ def get_pipeline(path, tokenizer, eos_token=None):
     return generator
 
 
-def get_vllm(
-    path: str,
-    tokenizer: AutoTokenizer,
-    **kwargs
-):
-    num_dev = torch.cuda.device_count()
-    model = LLM(
-        path,
-        tensor_parallel_size=num_dev,
-    )
-    model.set_tokenizer(tokenizer)
-
-    return model
-
-
 @torch.inference_mode()
 def main(model_path: str,
          output_dir: str,
          tokenizer_path: str = None,
          template_path: str = 'template_prompt/llama2_zh_no_sys.json',
          dataset_path: str = 'taide/taide-bench',
-         tasks: List[str] = ['summary',
+         tasks: list[str] = ['summary',
                              'en2zh',
                              'zh2en',
                              'letter',
