@@ -78,16 +78,3 @@ python evaluation/run_geval.py \
 --generated_result_paths "['$result1','$result2']"
 --output_path test.json
 ```
-
-### 使用自訓練評估模型進行評估
-
-你可以透過以下的的指令用自訓練評估模型來評估生成的結果
-
-```bash
-python evaluation/run_local_eval.py \
-    --judge_model $eval_model_path \
-    --template_path ./template_judge/local_tw.json \
-    --gen_result_path $generated_responses_path \
-    --task $task \
-    --output_path $output_jsonl_path
-```
