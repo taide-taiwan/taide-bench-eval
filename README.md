@@ -6,11 +6,12 @@
 
 ## 環境與安裝
 
-請確定你的環境已經安裝 Python 3.10。你可以透過建立虛擬環境 (Virtual Environment)並安裝必要的依賴函式庫。
+你可以透過 conda 建立虛擬環境並安裝必要的依賴函式庫。
 依賴的函式庫可以透過以下指令安裝：
 
 ```bash
-conda env create -f environment.yml
+conda env create -f environment.yml --solver libmamba 
+conda activate taide-bench
 ```
 
 ## 如何使用

@@ -1,28 +1,32 @@
-# taide-bench-eval
+# Welcome to taide-bench-eval
 
-Welcome to the taide-bench-eval repository! This tool enables you to evaluate the natural language generation (NLG) quality of models using GPT-4 with improved human alignment. For more details, please refer to the paper: [Vicuna: An Open-Source Chatbot Impressing GPT-4 with 90%* ChatGPT Quality](https://lmsys.org/blog/2023-03-30-vicuna/).
+This project aims to evaluate the performance of large language models (LLMs) on office tasks leveraging GPT-4, including Chinese-to-English translation, English-to-Chinese translation, summarization, essay writing, and letter writing. For more analysis on the evaluation using GPT-4, please refer to this paper: [https://arxiv.org/abs/2306.05685](https://arxiv.org/abs/2306.05685)
 
-## Environment
+[English Version of README.md](README_en.md)
 
-Before you get started, ensure that you have Python 3.10 installed. You can create a virtual environment with the required dependencies using the following command:
+## Environment and Installation
+
+You can create a virtual environment using conda and install the required dependencies.
+
+Install the dependencies using the following commands:
 
 ```bash
-conda env create -f environment.yml
+conda env create -f environment.yml --solver libmamba
+conda activate taide-bench
 ```
 
 ## How to Use
 
-### Generating Response
+### Generate Responses
 
-Generate text responses from your models using the provided script. Customize the parameters according to your needs:
+You can use the provided script to generate text responses from the models. Here are some customizable parameters:
 
 ```bash
 CKPTS_PATH=<HF_CKPT_PATH>
 PROMPT_PATH=./template_prompt/llama2_zh_no_sys.json
 OUTPUT_PATH=<OUTPUT_JSONL_PATH>
-TASKS="['en2zh','zh2en','summary']" # You can select a subset from ['en2zh','zh2en','summary','essay','letter']
-
-MAX_NEW_TOKENS=1024
+TASKS="['en2zh','zh2en','summary','essay','letter']"  # You can select a subset from ['en2zh','zh2en','summary','essay','letter']
+MAX_NEW_TOKENS=2048
 
 python generation/generate_with_large_lm.py \
 $ckpt_path \
@@ -32,105 +36,43 @@ $OUTPUT_PATH/${name} \
 <--other generation config>
 ```
 
-Alternatively, you can use the provided batch generation script:
+### Evaluate Using GPT-4 as the Ground Truth
+
+You can use the following command to evaluate the generated results based on GPT-4:
 
 ```bash
-bash bash/batch_generate.bash \
-  <CKPT_PATH> \
-  <OUTPUT_PATH>
+python evaluation/run_geval_ground.py --gen_result_path <generated jsonl path> \
+                                     --output_path <output judge json file> \
+                                     --req_method async  # or req
 ```
 
-or
+- This script will automatically determine the tasks to be evaluated based on the generated jsonl file (--gen_result_path).
+- Alternatively, you can use the `--task` parameter to specify the task you want to evaluate.
 
 ```bash
-bash bash/batch_generate.bash \
-  <FOLDER_OF_CKPTS_PATH> \
-  <OUTPUT_PATH>
+python evaluation/run_geval_ground.py --gen_result_path <generated jsonl path> \
+                                     --output_path <output judge json file> \
+                                     --task <task name>  # such as en2zh
 ```
 
-### Using GPT-4 as Ground Truth
+- `req_method`: Choose 'async' (using asyncio to send requests) or 'req' (using multithreaded requests).
 
-Evaluate your generated results against GPT-4 using the following command:
+Alternatively, you can use the following batch script to evaluate multiple results:
 
 ```bash
-python evaluation/run_geval_ground.py
-  --gen_result_path <generated jsonl path> \
-  --output_path <output judge json file> \
-  --req_method async # or req
+bash bash/batch_eval.bash \
+<GENERATED_JSONL_PATH>
 ```
 
-* This script will automatically judge the task you need to evaluate according to the generated jsonl file (`--gen_result_path`).
-* Alternatively, you can specify the task you want to evaluate using the `--task` argument.
+This script will automatically output the evaluation JSON files in the same folder as the corresponding jsonl files.
 
-```bash
-python evaluation/run_geval_ground.py
-  --gen_result_path <generated jsonl path> \
-  --output_path <output judge json file> \
-  --task <task name> # such as en2zh
-```
+### Compare Between Two Models
 
-- `req_method`: Choose between 'async' (using asyncio for sending requests) or 'req' (using requests with multiprocess support).
-
-Or you can use the provided batch evaluation script:
-
-```bash
-bash bash/batch_evaluate.bash \
-  <GENERATED_JSONL_PATH>
-```
-The script will automatically output judge json file in the same folder as the generated jsonl file.
-
-### Comparing Two Models
-
-Compare the quality of two models by running GEval. Evaluate the generated responses using the GEval script and specify the template and paths to the generated results:
+You can compare the output quality of two models:
 
 ```bash
 python evaluation/run_geval.py \
 --judge_model gpt-4 \
 --template_path ./prompt_template/geval.json \
---generated_result_paths "['./result/llama-7b_sft_wudao-chunk-9_lima/essay_prompt.jsonl','./result/ft_lima_zh/essay_prompt.jsonl']"
---output_path test.json
+--generated_result_paths "['$result1','$result2']" --output_path test.json
 ```
-
-To evaluate three models, adjust the template and paths as shown below:
-
-```bash
-python evaluation/run_geval.py \
---judge_model gpt-4 \
---template_path ./prompt_template/geval_3.json \
---generated_result_paths "['result/ft_lima_zh','result/llama-7b_sft_wudao-chunk-9_lima','result/llama-7b_sft_wudao-chunk-19_lima']" \
---output_path test.json
-```
-
-### Count Translation Language Errors
-
-You can count translation language errors using the following command:
-
-```bash
-python evaluation/run_cnt_translation_mixed_lang.py $model_generated_jsonl $output_json
-```
-
-This script helps identify mixed Chinese and English occurrences in the responses, depending on the prompt language.
-
-
-### Use Local Model to evaluate
-
-use following command to evaluate the generated response by local model.
-
-```bash
-python evaluation/run_local_eval.py \
-    --judge_model $eval_model_path \
-    --template_path ./template_judge/local_tw.json \
-    --gen_result_path $generated_responses_path \
-    --task $task \
-    --output_path $output_jsonl_path
-
-```
-
-
-## Performance
-
-### Speed
-
-- Without asyncio: 11 seconds per iteration
-- With asyncio: 1.94 seconds per iteration
-- 3 models evaluated in 6755 seconds
