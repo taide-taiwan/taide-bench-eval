@@ -38,6 +38,11 @@ $OUTPUT_PATH \
 
 ### Evaluate Using GPT-4 as the Ground Truth
 
+Setup OpenAI API key:
+```bash
+export OPENAI_API_KEY=<your openai api key>
+```
+
 You can use the following command to evaluate the generated results based on GPT-4:
 
 ```bash
