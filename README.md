@@ -38,6 +38,12 @@ $OUTPUT_PATH \
 
 ### 使用 GPT-4 作為基準真相
 
+設定OpenAI API key:
+
+```bash
+export OPENAI_API_KEY=<your openai api key>
+```
+
 你可以使用以下指令根據 GPT-4 評估生成結果：
 
 ```bash
