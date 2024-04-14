@@ -29,8 +29,8 @@ TASKS="['en2zh','zh2en','summary','essay','letter']" # You can select a subset f
 MAX_NEW_TOKENS=2048
 
 python generation/generate_with_large_lm.py \
-$ckpt_path \
-$OUTPUT_PATH/${name} \
+$CKPTS_PATH \
+$OUTPUT_PATH \
 --tasks $TASKS \
 --max_new_tokens $MAX_NEW_TOKENS \
 <--other generation config>
