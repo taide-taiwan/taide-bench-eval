@@ -36,6 +36,16 @@ $OUTPUT_PATH \
 <--other generation config>
 ```
 
+或者，您也可以使用使用以下腳本以 `transformers.tokenizer.apply_chat_template` 生成 response：
+
+```bash
+python generation/generate_with_chat_template.py $CKPT_PATH \
+$OUTPUT_PATH \
+--tasks $TASKS \
+--max_new_tokens $MAX_NEW_TOKENS \
+<--other generation config>
+```
+
 ### 使用 GPT-4 作為基準真相
 
 設定OpenAI API key:
