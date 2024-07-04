@@ -17,7 +17,7 @@ def add_template_to_instruction(inst: str, tokenizer: PreTrainedTokenizerBase):
     insts = [#{ 'role': 'system', 'content': '你是一個只會說台灣繁體中文的AI助理。'}, # you can add system prompt here
                                             {'role': 'user', 'content': inst}
                                             ]
-    result = tokenizer.apply_chat_template(insts, 
+    result = tokenizer.apply_chat_template(insts,
                                            tokenize=False,
                                            add_generation_prompt=True)
     return {'prompt': result}
@@ -29,9 +29,9 @@ def get_pipeline(path, tokenizer, eos_token=None):
         device_map='auto',
         attn_implementation='sdpa',
         trust_remote_code=True)
-    
+
     print(type(model))
-    
+
     tokenizer.padding_side = 'left'
     eos_token_id = tokenizer.convert_tokens_to_ids(eos_token) if eos_token else tokenizer.eos_token_id
     print('Model loaded')
@@ -49,14 +49,12 @@ def get_pipeline(path, tokenizer, eos_token=None):
 def main(model_path: str,
          output_dir: str,
          tokenizer_path: str = None,
-         dataset_path: str = 'TLLM/eval-geval',
-         tasks: list[str] = ['vicuna_tw',
-                             'summary',
+         dataset_path: str = 'taide/taide-bench',
+         tasks: list[str] = ['summary',
                              'en2zh',
                              'zh2en',
                              'letter',
                              'essay',
-                             'vicuna_en',
                              ],
          batch_size: int = 4,
          use_fast: bool = True,
